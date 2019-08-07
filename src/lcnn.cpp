@@ -257,9 +257,9 @@ Lcnn::Lcnn(string model_path)
 
 	fclose(fp);
 
-	target_width = input.input_params_.width_;
-	target_height = input.input_params_.height_;
-	target_channel = input.input_params_.channel_;
+	target_width = input.input_params_.width_; //320
+	target_height = input.input_params_.height_; //320
+	target_channel = input.input_params_.channel_; //3
 	setMean();
 }
 

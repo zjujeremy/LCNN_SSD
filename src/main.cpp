@@ -3,7 +3,7 @@
 
 void loadRandomColor(std::vector<std::vector<int> > &classes_color)
 {
-	//Ëæ»úÉú³É¸÷ÖÖÀàÑÕÉ«
+	//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É«
 	srand((unsigned)time(NULL));
 	int small = 100;
 	int big = 255;
@@ -49,7 +49,39 @@ void drawImage(Mat &image, vector<vector<float> > &detections, float detect_thre
 
 int main()
 {
-	//VOCÖÖÀà
+	///for MNN
+	Lcnn lcnn("Tensor from GPU Devices, include each layer output(1xCxHxW) and prioxbox(1x2x23500)");
+	Blob output = lcnn.Forward(sample_normalized);
+
+	const float* result = output.cpu_data();
+	const int num_det = output.height_;
+	vector<vector<float> > detections;
+	for (int k = 0; k < num_det; ++k) {
+		if (result[0] == -1) {
+			// Skip invalid detection.
+			result += 7;
+			continue;
+		}
+		vector<float> detection(result, result + 7);
+		detections.push_back(detection);
+		result += 7;
+	}
+	
+	for (int i = 0; i < detections.size(); ++i) {
+		const vector<float>& d = detections[i];
+		// Detection format: [image_id, label, score, xmin, ymin, xmax, ymax].
+		const float score = d[2];
+		if (score >= 0.3) {
+			//int clslabel = d[1] - 1;
+			MNN_PRINT("ljm >>>> xmin: %f, ymin: %f, xmax: %f, ymax: %f\n", d[3], d[4], d[5], d[6]);
+		}
+	}
+
+
+
+
+
+	//VOC
 	char *classes[20] = { "aeroplane", "bicycle", "bird", "boat", "bottle",
 		"bus", "car", "cat", "chair", "cow",
 		"diningtable", "dog", "horse", "motorbike", "person", 

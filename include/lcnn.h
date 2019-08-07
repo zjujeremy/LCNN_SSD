@@ -16,7 +16,7 @@ private:
 	int target_height;
 	int target_channel;
 
-//ÍøÂçÊı¾İ½á¹¹
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ½á¹¹
 private:
 	vector<Blob> input_datas_;
 
@@ -129,7 +129,7 @@ private:
 	vector<Blob> detection_out_inputs;
 	vector<Blob> detection_out_datas_;
 
-//ÍøÂç¼Ü¹¹
+//ï¿½ï¿½ï¿½ï¿½Ü¹ï¿½
 private:
 	InputLayer input;
 

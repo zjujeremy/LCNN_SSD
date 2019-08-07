@@ -64,7 +64,7 @@ void PermuteLayer::layer_set_up(vector<Blob>& bottom_data_, vector<Blob>& top_da
 		if (i == num_axes_ - 1) {
 			old_steps_.cpu_data()[i] = 1;
 		}
-		else {
+		else { 
 			old_steps_.cpu_data()[i] = bottom_data_[0].count(i + 1, num_axes_);
 		}
 		top_shape_.push_back(bottom_data_[0].shape(permute_order_.cpu_data()[i]));
